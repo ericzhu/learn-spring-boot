@@ -1,0 +1,2 @@
+Access the service configuration on the configuration server
+- http://localhost:8888/company-service/master

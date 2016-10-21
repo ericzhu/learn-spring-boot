@@ -14,3 +14,6 @@ launch arguments
 - package a runnable fat jar
 1. add the start-class property in pom.xml: <start-class>com.booster.StockCompanyServiceApplication</start-class>
 2. run mvn package
+
+- run spring boot applicaiton on specified port
+java -jar target/stock-company-service-0.0.1-SNAPSHOT.jar --server.port=8081
