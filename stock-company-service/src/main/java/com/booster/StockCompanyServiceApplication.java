@@ -4,11 +4,13 @@ import java.util.stream.Stream;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.ApplicationContext;
 
 import com.booster.entity.Company;
 import com.booster.repository.CompanyRepository;
 
+@EnableEurekaClient
 @SpringBootApplication
 public class StockCompanyServiceApplication {
 
