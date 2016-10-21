@@ -1,0 +1,16 @@
+- access the service of rest repository
+http://localhost:8080/companies/search/companiesByKeyword?keyword=%25G%25&page=1&size=2
+
+- access metric via actuator
+http://localhost:8080/metrics
+http://localhost:8080/trace
+http://localhost:8080/health
+
+- start multiple instances of micro-services
+launch arguments
+--server-port=8082
+--server-port=8083
+
+- package a runnable fat jar
+1. add the start-class property in pom.xml: <start-class>com.booster.StockCompanyServiceApplication</start-class>
+2. run mvn package

@@ -5,9 +5,6 @@ import java.util.stream.Stream;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
-import org.springframework.data.rest.webmvc.config.RepositoryRestMvcConfiguration;
 
 import com.booster.entity.Company;
 import com.booster.repository.CompanyRepository;
@@ -26,10 +23,11 @@ public class StockCompanyServiceApplication {
 	}
 }
 
-@Configuration
-class RepositoryConfig extends RepositoryRestMvcConfiguration {
-	@Override
-	protected void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
-		config.exposeIdsFor(Company.class);
-	}
-}
+// @Configuration
+// class RepositoryConfig extends RepositoryRestMvcConfiguration {
+// @Override
+// protected void
+// configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
+// config.exposeIdsFor(Company.class);
+// }
+// }
