@@ -1,7 +1,12 @@
-package com.booster.ecom.entity;
+package com.booster.ecom.model.entity;
 
 import java.util.Collection;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "users")
 public class User extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
@@ -9,6 +14,8 @@ public class User extends BaseEntity {
     private String            username;
     private String            password;
     private boolean           isActive;
+    
+    
     private Collection<Role>  roles;
 
     public String getUsername() {

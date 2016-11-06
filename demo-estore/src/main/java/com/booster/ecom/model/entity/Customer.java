@@ -1,12 +1,13 @@
-package com.booster.ecom.entity;
+package com.booster.ecom.model.entity;
 
 import java.util.Collection;
 
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "ECOM_CUSTOMER")
+@Table(name = "CUSTOMER")
 public class Customer extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
@@ -19,6 +20,7 @@ public class Customer extends BaseEntity {
 
     private String            address;
 
+    @OneToMany(mappedBy = "customer")
     private Collection<Order> orders;
 
     public Customer() {

@@ -1,4 +1,4 @@
-package com.booster.ecom.entity;
+package com.booster.ecom.model.entity;
 
 import java.util.Collection;
 
@@ -11,7 +11,7 @@ import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
-@Table(name = "ECOM_CATEGORY")
+@Table(name = "CATEGORY")
 public class Category extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
@@ -19,12 +19,13 @@ public class Category extends BaseEntity {
     @NotEmpty
     @Size(min = 4, max = 50)
     private String            name;
-    
+
+    @Size(min = 4)
     private String            description;
 
     @Lob
     private byte[]            image;
-    
+
     private String            imageName;
 
     @OneToMany(mappedBy = "category")

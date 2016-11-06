@@ -1,10 +1,10 @@
-package com.booster.ecom.entity;
+package com.booster.ecom.model.entity;
 
 public class Role extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
-    
-    private String roleName;
+
+    private String            roleName;
 
     public String getRoleName() {
         return roleName;

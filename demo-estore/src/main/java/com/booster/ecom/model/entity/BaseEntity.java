@@ -1,4 +1,4 @@
-package com.booster.ecom.entity;
+package com.booster.ecom.model.entity;
 
 import java.io.Serializable;
 

@@ -1,4 +1,4 @@
-package com.booster.ecom.entity;
+package com.booster.ecom.model.entity;
 
 import java.math.BigDecimal;
 
@@ -11,13 +11,13 @@ import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
-@Table(name = "ECOM_ITEM")
+@Table(name = "ITEM")
 public class Item extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
     @NotEmpty
-    @Size(min=4, max=50)
+    @Size(min = 4, max = 50)
     private String            name;
 
     private String            description;
