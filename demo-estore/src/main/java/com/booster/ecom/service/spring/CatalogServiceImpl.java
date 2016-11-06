@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.booster.ecom.model.entity.Category;
 import com.booster.ecom.model.entity.Item;
+import com.booster.ecom.repository.db.CategoryRepository;
 import com.booster.ecom.repository.db.ItemRepository;
 import com.booster.ecom.service.CatalogService;
 
@@ -17,36 +18,36 @@ import com.booster.ecom.service.CatalogService;
 public class CatalogServiceImpl implements CatalogService {
 
     @Autowired
-    private ItemRepository itemRepository;
+    private ItemRepository     itemRepository;
+
+    @Autowired
+    private CategoryRepository categoryRepository;
 
     @Override
     public Long addCategory(Category category) {
-        // TODO Auto-generated method stub
-        return null;
+        return categoryRepository.save(category).getId();
     }
 
     @Override
     public List<Category> listCategories() {
-        // TODO Auto-generated method stub
-        return null;
+        return categoryRepository.findAll();
     }
 
     @Override
     public Category getCategory(Long categoryId) {
-        // TODO Auto-generated method stub
-        return null;
+        return categoryRepository.getOne(categoryId);
     }
 
     @Override
     public void deleteCategory(Long categoryId) {
-        // TODO Auto-generated method stub
-
+        categoryRepository.delete(categoryId);
     }
 
     @Override
     public void updateCategory(Category category) {
-        // TODO Auto-generated method stub
-
+        Category persistentCategory = getCategory(category.getId());
+        persistentCategory.setName(category.getName());
+        persistentCategory.setDescription(category.getDescription());
     }
 
     @Override
@@ -56,8 +57,7 @@ public class CatalogServiceImpl implements CatalogService {
 
     @Override
     public List<Item> listItems() {
-        // TODO Auto-generated method stub
-        return null;
+        return itemRepository.findAll();
     }
 
     @Override

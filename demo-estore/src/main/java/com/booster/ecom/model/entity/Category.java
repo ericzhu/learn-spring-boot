@@ -31,6 +31,10 @@ public class Category extends BaseEntity {
     @OneToMany(mappedBy = "category")
     private Collection<Item>  items;
 
+    public Category() {
+
+    }
+
     public Category(String name, String description, byte[] image, String imageName) {
         super();
         this.name = name;
