@@ -2,11 +2,22 @@ package com.booster.ecom.service.spring;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.booster.ecom.model.entity.Category;
 import com.booster.ecom.model.entity.Item;
+import com.booster.ecom.repository.db.ItemRepository;
 import com.booster.ecom.service.CatalogService;
 
+@Service
+@Transactional
 public class CatalogServiceImpl implements CatalogService {
+
+    @Autowired
+    private ItemRepository itemRepository;
 
     @Override
     public Long addCategory(Category category) {
@@ -29,19 +40,18 @@ public class CatalogServiceImpl implements CatalogService {
     @Override
     public void deleteCategory(Long categoryId) {
         // TODO Auto-generated method stub
-        
+
     }
 
     @Override
     public void updateCategory(Category category) {
         // TODO Auto-generated method stub
-        
+
     }
 
     @Override
     public Long addItem(Item item) {
-        // TODO Auto-generated method stub
-        return null;
+        return itemRepository.save(item).getId();
     }
 
     @Override
@@ -77,13 +87,13 @@ public class CatalogServiceImpl implements CatalogService {
     @Override
     public void deleteItem(Long itemId) {
         // TODO Auto-generated method stub
-        
+
     }
 
     @Override
     public void updateItem(Item item) {
         // TODO Auto-generated method stub
-        
+
     }
 
 }

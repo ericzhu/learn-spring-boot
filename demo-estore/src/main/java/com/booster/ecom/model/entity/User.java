@@ -3,6 +3,7 @@ package com.booster.ecom.model.entity;
 import java.util.Collection;
 
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -15,7 +16,7 @@ public class User extends BaseEntity {
     private String            password;
     private boolean           isActive;
     
-    
+    @OneToMany
     private Collection<Role>  roles;
 
     public String getUsername() {
