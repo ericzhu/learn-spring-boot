@@ -1,4 +1,4 @@
-package com.booster.ecom.web.controller;
+package com.booster.ecom.web.ui.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
