@@ -7,6 +7,8 @@ import java.nio.file.Paths;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -42,5 +44,10 @@ public class ImageServiceImpl implements ImageService {
         final Image image = imageRepository.findByName(filename);
         imageRepository.delete(image);
         Files.deleteIfExists(Paths.get(ApplicationConstants.UPLOAD_DIR, filename));
+    }
+
+    @Override
+    public Page<Image> findPage(Pageable pageable) {
+        return imageRepository.findAll(pageable);
     }
 }
