@@ -13,9 +13,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Profile;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.util.FileSystemUtils;
-import org.springframework.web.servlet.ViewResolver;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
-import org.springframework.web.servlet.view.JstlView;
 
 import com.booster.ecom.constant.ApplicationConstants;
 import com.booster.ecom.constant.Profiles;
@@ -28,15 +25,6 @@ public class DemoEstoreApplication {
     public static void main(String[] args) {
         SpringApplication.run(DemoEstoreApplication.class, args);
     }
-
-//    @Bean
-//    public ViewResolver getViewResolver() {
-//        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-//        resolver.setPrefix("/WEB-INF/views/");
-//        resolver.setSuffix(".jsp");
-//        resolver.setViewClass(JstlView.class);
-//        return resolver;
-//    }
 
     @Bean
     @Profile(Profiles.DEMO)
