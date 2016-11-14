@@ -6,6 +6,18 @@
 <link rel="stylesheet" href="/main.css" />
 </head>
 <body>
+
+	<h3 th:if="${#vars['flash.message']}" th:text="${#vars['flash.message']}" class="flash"></h3>
+
+	<div>
+		<form action="/images" method="post" enctype="multipart/form-data">
+			<p>
+				<input type="file" name="file" />
+			</p>
+			<input type="submit" name="Upload" />
+		</form>
+	</div>
+
 	<div>
 		<h3 th:text="${page.number + 1} + ' of ' + ${page.totalPages}"></h3>
 
@@ -21,7 +33,7 @@
 				<tr th:each="image : ${page.content}">
 					<td th:text="${image.id}" />
 					<td th:text="${image.name}" />
-					<td><img th:src="@{'/images/' + ${image.name} + '/raw'}" class="thumbnail"/></td>
+					<td><img th:src="@{'/images/' + ${image.name} + '/raw'}" class="thumbnail" /></td>
 				</tr>
 			</tbody>
 
