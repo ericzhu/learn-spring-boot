@@ -8,8 +8,10 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<div>- ${exception} -</div>
+
 	<div id="form-category">
-		<form:form modelAttribute="category" method="post" enctype="multipart/form-data">
+		<form:form modelAttribute="category" action="saveCat" method="post" enctype="multipart/form-data">
 			<table>
 				<tr>
 					<td>Category ID</td>
@@ -29,6 +31,13 @@
 					<td><form:errors path="description" cssClass="error" /></td>
 				</tr>
 
+				<c:if test="${category.id != null}">
+					<tr>
+						<td></td>
+						<td><img width="100" alt="" src="/image/category/${category.id}"></td>
+						<td></td>
+					</tr>
+				</c:if>
 				<tr>
 					<td>Image</td>
 					<td><input type="file" name="imageFile"></td>
@@ -58,7 +67,10 @@
 						<td>${cat.id}</td>
 						<td>${cat.name}</td>
 						<td>${cat.description}</td>
-						<td></td>
+						<td><img width="100" alt="" src="/image/category/${cat.id}" /></td>
+
+						<td><a href="edit/${cat.id}">Edit</a></td>
+						<td><a href="delete/${cat.id}">Delete</a></td>
 					</tr>
 				</c:forEach>
 			</tbody>
