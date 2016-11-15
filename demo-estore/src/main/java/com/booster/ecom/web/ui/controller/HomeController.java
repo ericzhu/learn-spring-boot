@@ -27,6 +27,14 @@ public class HomeController {
         Page<Image> page = imageService.findPage(pageable);
         model.addAttribute("page", page);
 
+        if (page.hasPrevious()) {
+            model.addAttribute("prev", pageable.previousOrFirst());
+        }
+
+        if (page.hasNext()) {
+            model.addAttribute("next", pageable.next());
+        }
+
         return "index";
     }
 

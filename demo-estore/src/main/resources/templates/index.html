@@ -20,6 +20,15 @@
 
 	<div>
 		<h3 th:text="${page.number + 1} + ' of ' + ${page.totalPages}"></h3>
+		
+		<ul>
+			<li th:if="${prev}">
+				<a th:href="@{/(size=${prev.pageSize}, page=${prev.pageNumber})}">Previous</a>
+			</li>
+			<li th:if="${next}">
+				<a th:href="@{/(size=${next.pageSize}, page=${next.pageNumber})}">Next</a>
+			</li>
+		</ul>
 
 		<table>
 			<thead>
@@ -27,13 +36,23 @@
 					<th>ID</th>
 					<th>Name</th>
 					<th>Image</th>
+					<th></th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr th:each="image : ${page.content}">
 					<td th:text="${image.id}" />
 					<td th:text="${image.name}" />
-					<td><img th:src="@{'/images/' + ${image.name} + '/raw'}" class="thumbnail" /></td>
+					<td>
+						<a th:href="@{'/images/' + ${image.name} + '/raw'}">
+							<img th:src="@{'/images/' + ${image.name} + '/raw'}" class="thumbnail" />
+						</a>
+					</td>
+					<td>
+						<form th:method="delete" th:action="@{'/images/' + ${image.name}}">
+							<input type="submit" value="Delete" />
+						</form>
+					</td>
 				</tr>
 			</tbody>
 

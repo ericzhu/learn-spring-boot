@@ -54,16 +54,15 @@ public class ImageController {
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = BASE_PATH + "/" + FILE_NAME)
-    @ResponseBody
-    public ResponseEntity<?> deleteImage(@PathVariable String filename) {
+    public String deleteFile(@PathVariable String filename, RedirectAttributes redirectAttributes) {
 
         try {
             imageService.deleteImage(filename);
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).body("successfully deleted " + filename);
+            redirectAttributes.addFlashAttribute("flash.message", "successfuly delete " + filename);
         }
-        catch (IOException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("failed to delete " + filename + " => " + e.getMessage());
+        catch (IOException | RuntimeException e) {
+            redirectAttributes.addFlashAttribute("flash.message", "failed to delete " + filename + " => " + e.getMessage());
         }
-
+        return "redirect:/";
     }
 }
