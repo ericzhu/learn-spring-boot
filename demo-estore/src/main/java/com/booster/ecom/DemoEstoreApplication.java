@@ -8,7 +8,11 @@ import java.nio.file.Paths;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.actuate.endpoint.MetricReaderPublicMetrics;
+import org.springframework.boot.actuate.endpoint.PublicMetrics;
+import org.springframework.boot.actuate.metrics.repository.InMemoryMetricRepository;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.condition.ConditionEvaluationReport;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Profile;
 import org.springframework.util.FileCopyUtils;
@@ -27,8 +31,18 @@ public class DemoEstoreApplication {
     }
 
     @Bean
+    public InMemoryMetricRepository inMemoryMetricRepository() {
+        return new InMemoryMetricRepository();
+    }
+
+    @Bean
+    public PublicMetrics publicMetrics(InMemoryMetricRepository repository) {
+        return new MetricReaderPublicMetrics(repository);
+    }
+
+    @Bean
     @Profile(Profiles.DEMO)
-    public CommandLineRunner setup(ImageRepository imageRepository) throws IOException {
+    public CommandLineRunner setup(ImageRepository imageRepository, ConditionEvaluationReport report) throws IOException {
         return (args) -> {
             FileSystemUtils.deleteRecursively(new File(ApplicationConstants.UPLOAD_DIR));
             Files.createDirectory(Paths.get(ApplicationConstants.UPLOAD_DIR));
@@ -42,6 +56,9 @@ public class DemoEstoreApplication {
             FileCopyUtils.copy("test file3", new FileWriter(ApplicationConstants.UPLOAD_DIR + "/test3"));
             imageRepository.save(new Image("test3"));
 
+            report.getConditionAndOutcomesBySource().entrySet().stream().filter(e -> e.getValue().isFullMatch()).forEach(e -> {
+                System.out.println(e.getKey() + " => match? " + e.getValue().isFullMatch());
+            });
         };
     }
 }
