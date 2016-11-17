@@ -1,9 +1,6 @@
 package com.booster.ecom.model.entity;
 
-import java.util.Collection;
-
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -14,10 +11,18 @@ public class User extends BaseEntity {
 
     private String            username;
     private String            password;
-    private boolean           isActive;
-    
-    @OneToMany
-    private Collection<Role>  roles;
+    private String[]          roles;
+
+    public User() {
+
+    }
+
+    public User(String username, String password, String... roles) {
+        super();
+        this.username = username;
+        this.password = password;
+        this.roles = roles;
+    }
 
     public String getUsername() {
         return username;
@@ -35,20 +40,11 @@ public class User extends BaseEntity {
         this.password = password;
     }
 
-    public boolean getIsActive() {
-        return isActive;
-    }
-
-    public void setIsActive(boolean isActive) {
-        this.isActive = isActive;
-    }
-
-    public Collection<Role> getRoles() {
+    public String[] getRoles() {
         return roles;
     }
 
-    public void setRoles(Collection<Role> roles) {
+    public void setRoles(String[] roles) {
         this.roles = roles;
     }
-
 }
