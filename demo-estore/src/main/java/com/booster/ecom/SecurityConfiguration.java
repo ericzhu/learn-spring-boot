@@ -7,18 +7,11 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
-import com.booster.ecom.service.UserService;
+import com.booster.ecom.service.spring.SpringDataUserDetailsService;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
-
-    private UserService userService;
-
-    @Autowired
-    public SecurityConfiguration(UserService userService) {
-        this.userService = userService;
-    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -29,10 +22,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .formLogin()
             .permitAll();
     }
-
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userService);
+    
+    @Autowired
+    protected void configureJpaBasedUsers(AuthenticationManagerBuilder auth, SpringDataUserDetailsService userDetailsService) throws Exception {
+        auth.userDetailsService(userDetailsService);
     }
 
     // @Override

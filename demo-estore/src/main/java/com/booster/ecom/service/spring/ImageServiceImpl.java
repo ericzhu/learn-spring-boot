@@ -15,23 +15,30 @@ import org.springframework.core.io.ResourceLoader;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.booster.ecom.constant.ApplicationConstants;
 import com.booster.ecom.model.entity.Image;
+import com.booster.ecom.model.entity.User;
 import com.booster.ecom.repository.db.ImageRepository;
+import com.booster.ecom.repository.db.UserRepository;
 import com.booster.ecom.service.ImageService;
 
 @Service
 public class ImageServiceImpl implements ImageService {
 
     private ImageRepository          imageRepository;
+    private InMemoryMetricRepository inMemoryMetricRepository;
+
+    private UserRepository           userRepository;
+
     private ResourceLoader           resourceLoader;
     private CounterService           counterService;
     private GaugeService             gaugeService;
-
-    private InMemoryMetricRepository inMemoryMetricRepository;
 
     private SimpMessagingTemplate    messageTemplate;
 
@@ -41,7 +48,8 @@ public class ImageServiceImpl implements ImageService {
         CounterService counterService,
         GaugeService gaugeService,
         InMemoryMetricRepository inMemoryMetricRepository,
-        SimpMessagingTemplate messageTemplate) {
+        SimpMessagingTemplate messageTemplate,
+        UserRepository userRepository) {
 
         this.imageRepository = imageRepository;
         this.resourceLoader = resourceLoader;
@@ -53,20 +61,25 @@ public class ImageServiceImpl implements ImageService {
         this.inMemoryMetricRepository = inMemoryMetricRepository;
         this.inMemoryMetricRepository.set(new Metric<Number>("files.uploaded.totalBytes", 0));
         this.messageTemplate = messageTemplate;
+
+        this.userRepository = userRepository;
     }
 
     public Resource findOneImage(String filename) {
         return resourceLoader.getResource("file:" + ApplicationConstants.UPLOAD_DIR + "/" + filename);
     }
 
-    public void createImage(MultipartFile file) throws IOException {
+    public void createImage(MultipartFile file, String ownerName) throws IOException {
         if (!file.isEmpty()) {
             Files.copy(file.getInputStream(), Paths.get(ApplicationConstants.UPLOAD_DIR, file.getOriginalFilename()));
-            imageRepository.save(new Image(file.getOriginalFilename()));
+            User user = userRepository.findByUsername(ownerName);
+            imageRepository.save(new Image(file.getOriginalFilename(), user));
+            messageTemplate.convertAndSend("/topic/newImage", file.getOriginalFilename());
+
             counterService.increment("files.uploaded");
             gaugeService.submit("files.uploaded.lastByters", file.getSize());
             inMemoryMetricRepository.increment(new Delta<Number>("files.uploaded.totalBytes", file.getSize()));
-            messageTemplate.convertAndSend("/topic/newImage", file.getOriginalFilename());
+
         }
     }
 

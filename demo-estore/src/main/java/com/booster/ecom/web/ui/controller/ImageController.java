@@ -2,12 +2,14 @@ package com.booster.ecom.web.ui.controller;
 
 import java.io.IOException;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,10 +43,12 @@ public class ImageController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = BASE_PATH)
-    public String createFile(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) {
+    public String createFile(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes, HttpSession session) {
 
         try {
-            imageService.createImage(file);
+            
+            SecurityContext securityContext = (SecurityContext)session.getAttribute("SPRING_SECURITY_CONTEXT");
+            imageService.createImage(file, securityContext.getAuthentication().getName());
             redirectAttributes.addFlashAttribute("flash.message", "successfully uploaded " + file.getOriginalFilename());
         }
         catch (Exception e) {
