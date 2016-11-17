@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
 <meta charset="UTF-8" />
 <title>Insert title here</title>
@@ -7,6 +7,15 @@
 <script src="webjars/requirejs/2.2.0/require.js"></script>
 </head>
 <body>
+
+	<div>
+		<span sec:authentication="name"></span> has <span sec:authentication="authorities"></span>
+		<form method="post" th:action="@{/logout}">
+			<input type="submit" value="Logout" />
+		</form>
+	</div>
+
+	<h1>Spring Boot Demo</h1>
 
 	<h3 th:if="${#vars['flash.message']}" th:text="${#vars['flash.message']}" class="flash"></h3>
 
