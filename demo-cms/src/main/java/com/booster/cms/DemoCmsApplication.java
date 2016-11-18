@@ -1,4 +1,4 @@
-package com.booster.ecom;
+package com.booster.cms;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
