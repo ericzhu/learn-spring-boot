@@ -23,6 +23,5 @@ public class DemoCmsApplicationTests {
         String messageKey = "commerce.item.page.title";
 
         assertEquals(expectedMessage, i18nMessageService.getMessage(messageKey));
-
     }
 }
