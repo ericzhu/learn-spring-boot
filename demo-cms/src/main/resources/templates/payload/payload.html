@@ -3,17 +3,22 @@
 <head th:replace="common/header :: common-header" />
 <body>
 	<div th:replace="common/navbar :: common-navbar"></div>
-	
+
 	<div class="container">
-		<div class="starter-template">
-			<h1 th:text="#{commerce.category.page.title}"></h1>
-			<h1>Bootstrap starter template</h1>
-			<p class="lead">
-				Use this document as a way to quickly start any new project.<br /> All you get is this text and a mostly barebones HTML document.
-			</p>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="jumbotron">
+					<div class="text-center">
+						<h1>Things all changed.</h1>
+						<p class="lead">
+						If you can see this page means you are logged in.
+						</p>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
-	
+
 	<div th:replace="common/header :: before-body-scripts"></div>
 </body>
 </html>

@@ -36,7 +36,7 @@
 		</encoder>
 	</appender>
 
-	<logger name="com.booster.cms" level="error" />
+	<logger name="com.booster.cms" level="debug" />
 	<logger name="uk.co.jemos.podam" level="warn" />
 	<logger name="org.springframework" level="info" />
 	<logger name="org.hibernate" level="warn" />
