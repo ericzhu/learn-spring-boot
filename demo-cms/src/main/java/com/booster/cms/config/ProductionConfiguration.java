@@ -6,7 +6,7 @@ import org.springframework.context.annotation.PropertySource;
 
 @Configuration
 @Profile(Profiles.PROD)
-@PropertySource("file://C:/Users/eric/cms/application-prod.properties")
+@PropertySource("file:///home/${user.name}/.cms/application-prod.properties")
 public class ProductionConfiguration {
 
 }
