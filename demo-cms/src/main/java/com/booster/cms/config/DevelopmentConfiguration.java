@@ -10,7 +10,7 @@ import com.booster.cms.core.service.spring.EmailServiceMockImpl;
 
 @Configuration
 @Profile(Profiles.DEV)
-@PropertySource("file:///home/${user.name}/.cms/application-dev.properties")
+@PropertySource("file:C:/Users/eric/cms/application-dev.properties")
 public class DevelopmentConfiguration {
 
     @Bean
