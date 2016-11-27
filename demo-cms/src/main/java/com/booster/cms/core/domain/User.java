@@ -56,7 +56,7 @@ public class User implements Serializable {
     @JoinColumn(name = "plan_id")
     private Plan              plan;
 
-    @OneToMany(mappedBy = "user", fetch=FetchType.EAGER)
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private Set<UserRole>     userRoles        = new HashSet<>();
 
     public User() {}
@@ -165,4 +165,11 @@ public class User implements Serializable {
         this.plan = plan;
     }
 
+    public Set<UserRole> getUserRoles() {
+        return userRoles;
+    }
+
+    public void setUserRoles(Set<UserRole> userRoles) {
+        this.userRoles = userRoles;
+    }
 }

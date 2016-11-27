@@ -16,12 +16,20 @@ public class UserRole implements Serializable {
     private static final long serialVersionUID = 1L;
 
     public UserRole() {}
-    
+
+    public UserRole(User user, Role role) {
+        assert user != null;
+        assert role != null;
+
+        this.user = user;
+        this.role = role;
+    }
+
     @Id
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User user;
-    
+
     @Id
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "role_id")
