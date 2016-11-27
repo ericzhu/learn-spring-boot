@@ -19,13 +19,13 @@ import com.booster.cms.core.domain.UserRole;
 import com.booster.cms.core.repository.PlanRepository;
 import com.booster.cms.core.repository.RoleRepository;
 import com.booster.cms.core.repository.UserRepository;
+import com.booster.cms.enums.RoleEnum;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = DemoCmsApplication.class)
 public class RepositoryIntegrationTest {
 
     private static final Long BASIC_PLAN_ID = 1L;
-    private static final Long BASIC_ROLE_ID = 1L;
 
     @Autowired
     private PlanRepository    planRepository;
@@ -51,7 +51,7 @@ public class RepositoryIntegrationTest {
     @Test
     public void testCreateNewRole() {
         roleRepository.save(createBasicRole());
-        Role role = roleRepository.findOne(BASIC_ROLE_ID);
+        Role role = roleRepository.findOne(RoleEnum.BASIC.getId());
         Assert.assertNotNull(role);
     }
 
@@ -85,7 +85,7 @@ public class RepositoryIntegrationTest {
     }
 
     private Role createBasicRole() {
-        return new Role(BASIC_ROLE_ID, "ROLE_ADMIN");
+        return new Role(RoleEnum.BASIC);
     }
 
     private User createBasicUser() {

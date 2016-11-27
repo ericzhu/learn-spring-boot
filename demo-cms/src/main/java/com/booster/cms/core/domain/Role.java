@@ -9,31 +9,38 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.booster.cms.enums.RoleEnum;
+
 @Entity
 public class Role implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
-    private Long              id;
+    private Integer           id;
 
     private String            name;
 
     public Role() {}
 
-    public Role(Long id, String name) {
+    public Role(Integer id, String name) {
         this.id = id;
         this.name = name;
+    }
+
+    public Role(RoleEnum roleEnum) {
+        this.id = roleEnum.getId();
+        this.name = roleEnum.getName();
     }
 
     @OneToMany(mappedBy = "role", fetch = FetchType.EAGER)
     private Set<UserRole> userRoles = new HashSet<>();
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

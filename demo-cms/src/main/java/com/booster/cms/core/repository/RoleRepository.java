@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.booster.cms.core.domain.Role;
 
 @Repository
-public interface RoleRepository extends CrudRepository<Role, Long> {
+public interface RoleRepository extends CrudRepository<Role, Integer> {
 
 }
